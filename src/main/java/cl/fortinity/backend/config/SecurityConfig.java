@@ -87,51 +87,64 @@ public class SecurityConfig {
                                 "/v3/api-docs/**")
                         .permitAll()
 
+
                         .requestMatchers(HttpMethod.POST,
                                 "/api/auth/login",
                                 "/api/auth/register")
                         .permitAll()
 
+
                         .requestMatchers("/api/auth/me")
                         .authenticated()
+
 
                         .requestMatchers("/api/usuarios/**")
                         .hasRole("ADMIN")
 
+
                         .requestMatchers(HttpMethod.GET,
                                 "/api/productos/todos")
                         .hasAnyRole("ADMIN", "VENDEDOR")
+
 
                         .requestMatchers(HttpMethod.GET,
                                 "/api/productos/**",
                                 "/api/categorias/**")
                         .permitAll()
 
+
                         .requestMatchers(HttpMethod.POST,
                                 "/api/productos/**")
-                        .hasAnyRole("ADMIN", "VENDEDOR")
+                        .hasRole("ADMIN")
+
 
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/productos/**")
-                        .hasAnyRole("ADMIN", "VENDEDOR")
+                        .hasRole("ADMIN")
+
 
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/productos/**")
                         .hasRole("ADMIN")
 
+
                         .requestMatchers(HttpMethod.PATCH,
                                 "/api/productos/**")
                         .hasRole("ADMIN")
 
+
                         .requestMatchers("/api/categorias/**")
                         .hasRole("ADMIN")
+
 
                         .requestMatchers(HttpMethod.POST,
                                 "/api/boletas/comprar")
                         .hasRole("CLIENTE")
 
+
                         .requestMatchers("/api/boletas/**")
                         .authenticated()
+
 
                         .anyRequest()
                         .denyAll())
