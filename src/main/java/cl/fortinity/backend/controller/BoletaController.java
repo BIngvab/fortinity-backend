@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/boletas")
+@RequestMapping({"/api/boletas", "/api/v1/boletas"})
 @Transactional
 public class BoletaController {
 

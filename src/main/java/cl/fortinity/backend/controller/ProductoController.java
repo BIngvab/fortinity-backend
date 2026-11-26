@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 
 @RestController
-@RequestMapping("/api/productos")
+@RequestMapping({"/api/productos", "/api/v1/productos"})
 @Transactional
 public class ProductoController {
 

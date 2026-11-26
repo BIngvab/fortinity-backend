@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping({"/api/auth", "/api/v1/auth"})
 public class AuthController {
 
     private final UsuarioService usuarioService;

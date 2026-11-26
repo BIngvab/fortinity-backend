@@ -55,8 +55,10 @@ public class SecurityConfig {
                 .macAlgorithm(MacAlgorithm.HS256)
                 .build();
 
+
         decoder.setJwtValidator(
                 JwtValidators.createDefaultWithIssuer("fortinity"));
+
 
         return decoder;
 
@@ -90,59 +92,77 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.POST,
                                 "/api/auth/login",
-                                "/api/auth/register")
+                                "/api/auth/register",
+                                "/api/v1/auth/login",
+                                "/api/v1/auth/register")
                         .permitAll()
 
 
-                        .requestMatchers("/api/auth/me")
+                        .requestMatchers(
+                                "/api/auth/me",
+                                "/api/v1/auth/me")
                         .authenticated()
 
 
-                        .requestMatchers("/api/usuarios/**")
+                        .requestMatchers(
+                                "/api/usuarios/**",
+                                "/api/v1/usuarios/**")
                         .hasRole("ADMIN")
 
 
                         .requestMatchers(HttpMethod.GET,
-                                "/api/productos/todos")
+                                "/api/productos/todos",
+                                "/api/v1/productos/todos")
                         .hasAnyRole("ADMIN", "VENDEDOR")
 
 
                         .requestMatchers(HttpMethod.GET,
                                 "/api/productos/**",
-                                "/api/categorias/**")
+                                "/api/categorias/**",
+                                "/api/v1/productos/**",
+                                "/api/v1/categorias/**")
                         .permitAll()
 
 
                         .requestMatchers(HttpMethod.POST,
-                                "/api/productos/**")
+                                "/api/productos/**",
+                                "/api/v1/productos/**")
                         .hasRole("ADMIN")
 
 
                         .requestMatchers(HttpMethod.PUT,
-                                "/api/productos/**")
+                                "/api/productos/**",
+                                "/api/v1/productos/**")
                         .hasRole("ADMIN")
 
 
                         .requestMatchers(HttpMethod.DELETE,
-                                "/api/productos/**")
+                                "/api/productos/**",
+                                "/api/v1/productos/**")
                         .hasRole("ADMIN")
 
 
                         .requestMatchers(HttpMethod.PATCH,
-                                "/api/productos/**")
+                                "/api/productos/**",
+                                "/api/v1/productos/**")
                         .hasRole("ADMIN")
 
 
-                        .requestMatchers("/api/categorias/**")
+                        .requestMatchers(
+                                "/api/categorias/**",
+                                "/api/v1/categorias/**")
                         .hasRole("ADMIN")
 
 
                         .requestMatchers(HttpMethod.POST,
-                                "/api/boletas/comprar")
+                                "/api/boletas/comprar",
+                                "/api/v1/boletas/comprar")
                         .hasRole("CLIENTE")
 
 
-                        .requestMatchers("/api/boletas/**")
+                        .requestMatchers(
+                                "/api/boletas/**",
+                                "/api/v1/boletas/**")
                         .authenticated()
 
 
@@ -159,6 +179,7 @@ public class SecurityConfig {
                                     .orElseThrow(() ->
                                             new OAuth2AuthenticationException(
                                                     "invalid_token"));
+
 
                             return new JwtAuthenticationToken(
                                     token,
