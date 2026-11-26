@@ -104,6 +104,12 @@ public class SecurityConfig {
                         .authenticated()
 
 
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/auth/refresh",
+                                "/api/v1/auth/refresh")
+                        .authenticated()
+
+
                         .requestMatchers(
                                 "/api/usuarios/**",
                                 "/api/v1/usuarios/**")

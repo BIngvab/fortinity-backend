@@ -93,6 +93,32 @@ public class AuthController {
     }
 
 
+    @PostMapping("/refresh")
+    public AuthRespuesta renovarToken(Principal principal) {
+
+        if (principal == null) {
+
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Debes iniciar sesion");
+
+        }
+
+
+        Usuario usuario = usuarioRepository
+                .findByEmail(principal.getName())
+                .filter(u -> u.isActivo())
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.UNAUTHORIZED,
+                                "Sesion no valida"));
+
+
+        return generarRespuesta(usuario);
+
+    }
+
+
     @GetMapping("/me")
     public UsuarioRespuesta perfil(Principal principal) {
 
